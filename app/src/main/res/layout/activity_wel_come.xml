@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.xiaox.goline2.WelComeActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f4f4f4"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary">
+            <TextView
+                android:id="@+id/homeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:text="WELCOME"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="24dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="400">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="GOLINE"
+                    android:fontFamily="monospace"
+                    android:textAlignment="center"
+                    android:textSize="60dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="90dp"
+                    android:text="||||||||||||||||||||||||||||||||||||||||||||||" />
+
+                <TextView
+                    android:id="@+id/playTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:text="play"
+                    android:textSize="24dp"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:padding="10dp"
+            android:text="\@Copyright2017-Epxoxy" />
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
