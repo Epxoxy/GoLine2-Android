@@ -9,10 +9,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by xiaox on 1/23/2017.
- */
-public class TextCircle extends TextView {
+
+public class TextCircle extends android.support.v7.widget.AppCompatTextView {
 
     public TextCircle(Context context){
         super(context);

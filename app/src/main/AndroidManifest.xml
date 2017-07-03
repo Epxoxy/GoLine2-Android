@@ -14,24 +14,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".GosActivity"
+            android:name=".activities.GosActivity"
             android:label="@string/title_activity_gos"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LogActivity" />
+        <activity android:name=".activities.LogActivity" />
         <activity
-            android:name=".WelComeActivity"
+            android:name=".activities.WelComeActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -41,17 +41,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ItemListActivity"
+            android:name=".activities.ItemListActivity"
             android:label="@string/title_item_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".ItemDetailActivity"
+            android:name=".activities.ItemDetailActivity"
             android:label="@string/title_item_detail"
-            android:parentActivityName=".ItemListActivity"
+            android:parentActivityName=".activities.ItemListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.xiaox.goline2.ItemListActivity" />
+                android:value="com.example.xiaox.goline2.activities.ItemListActivity" />
         </activity>
     </application>
 

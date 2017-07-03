@@ -6,26 +6,28 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Path;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import com.example.xiaox.goline2.R;
+import com.example.xiaox.goline2.common.ColorEx;
+import com.example.xiaox.goline2.extension.helper.ActionEx;
 import com.example.xiaox.goline2.extension.helper.Bound;
 import com.example.xiaox.goline2.extension.helper.DensityUtil;
 import com.example.xiaox.goline2.extension.helper.DrawPoint;
+import com.example.xiaox.goline2.extension.helper.IAction;
 import com.example.xiaox.goline2.extension.helper.Logger;
 import com.example.xiaox.goline2.extension.helper.MarkEx;
+import com.example.xiaox.goline2.service.SFXService;
 
-import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by xiaox on 1/22/2017.
- */
-public class GosViews extends ViewGroup {
-
+public class GosViews extends ViewGroup implements core.interfaces.IBoard {
     public GosViews(Context context){
         super(context);
         this.setWillNotDraw(false);
@@ -50,7 +52,7 @@ public class GosViews extends ViewGroup {
     private Path drawingPath;
     private PaintFlagsDrawFilter pfd;
     public float pathLineWidth = 10f;
-    public int pathStrokeFill = Color.parseColor("#87CEEB");
+    public int pathStrokeFill = ColorEx.SKYBLUE;
     private int columnCount = 10;
     private int rowCount = 10;
     private int radius;
@@ -58,6 +60,7 @@ public class GosViews extends ViewGroup {
     private float latticeLength = 100;
     private Paint pathPaint = null;
     private View[][] internalViews;
+    private Circle newestTipView;
     //For adapt density
     private int radiusDP = 20;
     private int paddingDP = 16;
@@ -264,11 +267,8 @@ public class GosViews extends ViewGroup {
                 if(Math.abs(downX - x) <= this.radius && Math.abs(downX - x) <= this.radius){
                     //Try to calculate column/row value
                     int[] col_row = this.tryGetColumnRow(x, y);
-                    if (col_row != null && this.latticeClickListener != null) {//
-                        //Raise Listener
-                        this.latticeClickListener.onLatticeClick(col_row[0], col_row[1], this.radius);
-                        //Debug option
-                        Logger.logLine("Lattice click at " + col_row[0] + "," + col_row[1]);
+                    if (col_row != null) {//
+                        raiseOnLatticeClick(col_row[0], col_row[1]);
                         //Ensure this ViewGroup don't consume this event
                         //So return false so that Activity can receive event
                         return false;
@@ -282,6 +282,15 @@ public class GosViews extends ViewGroup {
             return true;
         }
         return super.onTouchEvent(event);
+    }
+
+    private void raiseOnLatticeClick(int col, int row){
+        if (clickListener != null) {//
+            //Raise Listener
+            this.clickListener.onLatticeClick(col, row, this.radius);
+            //Debug option
+            Logger.logLine("Lattice click at " + col + "," + row);
+        }
     }
 
     @Override
@@ -348,9 +357,45 @@ public class GosViews extends ViewGroup {
         canvas.drawPath(drawingPath, this.pathPaint);
     }
 
-    private OnLatticeClickListener latticeClickListener = null;
-    public void setOnLatticeClickListener(OnLatticeClickListener listener){
-        this.latticeClickListener = listener;
+    @Override
+    public void drawChess(final int x, final int y, final boolean host) {
+        ActionEx.invoke(new IAction() {
+            @Override
+            public void onAction() {
+                drawEllipseImpl(x, y, host);
+            }
+        }, invokeHandler);
+    }
+
+    @Override
+    public void removeChess(final int x, final int y) {
+        ActionEx.invoke(new IAction() {
+            @Override
+            public void onAction() {
+                removeEllipseImpl(x, y);
+            }
+        }, invokeHandler);
+    }
+
+    @Override
+    public void clearChess(){
+        ActionEx.invoke(new IAction() {
+            @Override
+            public void onAction() {
+                newestTipView = null;
+                GosViews.this.removeAllViews();
+                for(int i = 0; i < internalViews.length; i++){
+                    for(int j = 0; j < internalViews[i].length; j++){
+                        internalViews[i][j] = null;
+                    }
+                }
+            }
+        }, invokeHandler);
+    }
+
+    @Override
+    public void setLatticeClickListener(core.interfaces.LatticeClickListener listener) {
+        this.clickListener = listener;
     }
 
     /**
@@ -360,4 +405,40 @@ public class GosViews extends ViewGroup {
         public abstract void onLatticeClick(int column, int row, int clickRadius);
     }
 
+    private Handler invokeHandler = new Handler(){
+        public void handleMessage(Message message) {
+            IAction action = (IAction)message.obj;
+            if(action != null) action.onAction();
+        }
+    };
+
+    private void drawEllipseImpl(int x, int y, boolean host){
+        Circle circle = new Circle(this.getContext());
+        circle.setFill(host ? ColorEx.SKYBLUE : Color.GRAY);
+        if(newestTipView != null)
+            newestTipView.setStrokeFill(Color.WHITE);
+        newestTipView = circle;
+        newestTipView.setStrokeFill(ColorEx.ACTIVE);
+        this.addViewIn(circle, x, y);
+        SFXService.play(this.getContext(), R.raw.click2);
+        circle.setScaleX(1.5f);
+        circle.setScaleY(1.5f);
+        circle.setAlpha(0.5f);
+        circle.animate().scaleX(1).scaleY(1).alpha(1).setDuration(100).start();
+    }
+
+    private void removeEllipseImpl(int x,int y){
+        if(x > 0 && y > 0 && x < internalViews.length && y < internalViews[x].length){
+            View view = internalViews[x][y];
+            if(view != null){
+                if(newestTipView == view)
+                    newestTipView = null;
+                internalViews[x][y] = null;
+                this.removeView(view);
+            }
+        }
+
+    }
+
+    private core.interfaces.LatticeClickListener clickListener;
 }

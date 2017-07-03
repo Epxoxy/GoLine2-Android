@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.xiaox.goline2.LogActivity">
+    tools:context="com.example.xiaox.goline2.activities.LogActivity">
     <Button
         android:id="@+id/clearBtn"
         android:layout_width="wrap_content"

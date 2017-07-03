@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.xiaox.goline2.MainActivity">
+    tools:context="com.example.xiaox.goline2.activities.MainActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -83,14 +83,14 @@
                         android:src="@android:drawable/stat_notify_chat" />
                 </android.support.design.widget.CoordinatorLayout>
 
-                <com.example.xiaox.goline2.extension.view.Ellipse
+                <com.example.xiaox.goline2.extension.view.Circle
                     android:id="@+id/strokeEllipse"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="80dp"
                     android:visibility="gone" />
 
-                <com.example.xiaox.goline2.extension.view.Ellipse
+                <com.example.xiaox.goline2.extension.view.Circle
                     android:id="@+id/strokeRedEllipse"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

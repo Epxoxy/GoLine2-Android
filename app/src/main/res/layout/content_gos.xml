@@ -4,37 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.xiaox.goline2.GosActivity"
+    tools:context="com.example.xiaox.goline2.activities.GosActivity"
     android:orientation="vertical"
     tools:showIn="@layout/activity_gos">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/timeTextView"
-            android:text="00:00:00"
-            android:textSize="20dp"
-            android:layout_margin="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/p1TimeTextView"
-                android:text="00:00:00"
-                android:textSize="20dp"
+                android:id="@+id/p1TV"
+                android:text="@string/host"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:layout_margin="4dp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
             <TextView
-                android:id="@+id/p2TimeTextView"
-                android:text="00:00:00"
-                android:textSize="20dp"
+                android:id="@+id/p2TV"
+                android:text="@string/join"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:layout_margin="4dp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
@@ -58,26 +55,23 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
+                android:id="@+id/startBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Start"/>
+                android:text="@string/start"/>
             <Button
+                android:id="@+id/undoBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Undo"/>
+                android:text="@string/undo"/>
             <Button
+                android:id="@+id/resetBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Reset"/>
-            <Button
-                android:id="@+id/tipsNewest"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Newest"/>
+                android:text="@string/reset"/>
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

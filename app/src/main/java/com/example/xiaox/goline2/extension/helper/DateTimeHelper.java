@@ -1,8 +1,5 @@
 package com.example.xiaox.goline2.extension.helper;
 
-/**
- * Created by xiaox on 1/31/2017.
- */
 public class DateTimeHelper {
 
     public static String msToShortString(long _milliseconds){
